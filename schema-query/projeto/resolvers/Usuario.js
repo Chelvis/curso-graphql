@@ -1,12 +1,6 @@
 const { perfis } = require('../data/db')
 
 module.exports = {
-    salario(usuario) {
-        return usuario.salario_real
-    },
-    perfil(usuario) {
-        const sels = perfis
-            .filter(p => p.id === usuario.perfil_id)
-        return sels ? sels[0] : null
-    }
+    salario: usuario => usuario.salario_real,
+    perfil: usuario => perfis.filter(p => p.id === usuario.perfil_id)[0] || null
 }

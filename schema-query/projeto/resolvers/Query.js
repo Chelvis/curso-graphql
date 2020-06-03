@@ -1,51 +1,37 @@
 const { usuarios, perfis } = require('../data/db')
 
 module.exports = {
-    ola() {
-        return 'Bom dia!'
-    },
-    horaAtual() {
-        return new Date
-    },
-    usuarioLogado(obj) {
-        console.log(obj)
+    ola: () => 'Kelvin Marques',
+    horaAtual: () => new Date,
+    usuarioLogado: () => {
         return {
             id: 1,
-            nome: 'Ana da Web',
-            email: 'anadaweb@email.com',
-            idade: 23,
-            salario_real: 1234.56,
+            nome: 'Kelvin Marques',
+            email: 'kelvin.marques@gmail.com',
+            idade: 28,
+            salario_real: 1256.20,
             vip: true
         }
     },
-    produtoEmDestaque() {
+    produtoEmDestaque: () => {
         return {
-            nome: 'Notebook Gamer',
-            preco: 4890.89,
-            desconto: 0.5
+            nome: 'Notebook',
+            preco: 1280
         }
     },
-    numerosMegaSena() {
-        // return [4, 8, 13, 27, 33, 54]
-        const crescente = (a, b) => a - b
-        return Array(6).fill(0)
-            .map(n => parseInt(Math.random() * 60 + 1))
-            .sort(crescente)
+    numerosMegaSena: () => {
+        const crescente = (a, b) => a - b;
+        let array = []
+
+        while (array.length < 6) {
+            array.push(parseInt(Math.random() * 60 + 1))
+            array = array.filter((n, i) => array.indexOf(n) === i)
+        }
+
+        return array.sort(crescente)
     },
-    usuarios() {
-        return usuarios
-    },
-    usuario(_, { id }) {
-        const sels = usuarios
-            .filter(u => u.id === id)
-        return sels ? sels[0] : null
-    },
-    perfis() {
-        return perfis
-    },
-    perfil(_, { id }) {
-        const sels = perfis
-            .filter(p => p.id === id)
-        return sels ? sels[0] : null 
-    }
+    usuarios: () => usuarios,
+    usuario: (object, { id }) => usuarios.filter(u => id === u.id)[0] || null,
+    perfis: () => perfis,
+    perfil: (object, { id }) => perfis.filter(p => id === p.id)[0] || null
 }
